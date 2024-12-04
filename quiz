@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Question {
+    string question;
+    vector<string> choices;
+    int correctAnswer;
+};
+
+void askQuestion(const Question& q) {
+    cout << q.question << endl;
+    for (size_t i = 0; i < q.choices.size(); ++i) {
+        cout << i + 1 << ". " << q.choices[i] << endl;
+    }
+    cout << "정답을 선택하세요 (숫자로 입력): ";
+}
+
+int main() {
+    vector<Question> questions = {
+        {"C++의 창시자는 누구인가?", {"Bjarne Stroustrup", "James Gosling", "Dennis Ritchie", "Guido van Rossum"}, 1},
+        {"C++에서 객체를 생성하는 키워드는?", {"new", "create", "make", "build"}, 1},
+        {"C++에서 상속을 나타내는 키워드는?", {"extends", "inherits", "derives", "public"}, 4}
+    };
+
+    int score = 0;
+
+    for (const auto& q : questions) {
+        askQuestion(q);
+        int answer;
+        cin >> answer;
+
+        if (answer == q.correctAnswer) {
+            cout << "정답입니다!" << endl;
+            ++score;
+        } else {
+            cout << "오답입니다. 정답은 " << q.correctAnswer << "번입니다." << endl;
+        }
+        cout << endl;
+    }
+
+    cout << "게임 종료! 총 점수: " << score << "/" << questions.size() << endl;
+
+    return 0;
+}
